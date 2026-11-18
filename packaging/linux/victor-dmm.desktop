@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=VICTOR DMM
+Comment=Real-time display and logging for VICTOR USB multimeters
+Exec=victor-dmm
+Icon=utilities-system-monitor
+Terminal=false
+Categories=Science;Electronics;Utility;

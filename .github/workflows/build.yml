@@ -1,0 +1,76 @@
+name: Build installers
+
+# Builds on every push/PR; pushing a tag like v1.0.0 also publishes a GitHub release
+# with the Windows .exe, macOS .dmg and Linux .deb attached.
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: python -m unittest discover -s tests -v
+
+  linux:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: packaging/linux/build_deb.sh
+      - uses: actions/upload-artifact@v4
+        with: { name: linux-deb, path: dist/*.deb }
+
+  windows:
+    needs: test
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pyinstaller
+      - run: pyinstaller --noconfirm --onefile --windowed --name VictorDMM victor_dmm_gui.py
+      - run: pyinstaller --noconfirm --onefile --console --name victor-dmm-cli victor_dmm.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-exe
+          path: |
+            dist/VictorDMM.exe
+            dist/victor-dmm-cli.exe
+
+  macos:
+    needs: test
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pyinstaller
+      - run: |
+          pyinstaller --noconfirm --windowed --name "VICTOR DMM" \
+            --osx-bundle-identifier io.github.ohlincha.victor-dmm victor_dmm_gui.py
+          mkdir -p dmg && cp -R "dist/VICTOR DMM.app" dmg/ && ln -s /Applications dmg/Applications
+          hdiutil create -volname "VICTOR DMM" -srcfolder dmg -ov -format UDZO dist/VictorDMM-macOS.dmg
+      - uses: actions/upload-artifact@v4
+        with: { name: macos-dmg, path: dist/VictorDMM-macOS.dmg }
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [linux, windows, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { path: out, merge-multiple: true }
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: out/*
+          generate_release_notes: true

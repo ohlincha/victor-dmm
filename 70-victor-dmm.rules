@@ -1,0 +1,5 @@
+# Give users access to VICTOR USB multimeters (USB ID 1244:d237) via hidraw.
+# Must sort before 73-seat-late.rules for TAG+="uaccess" to take effect.
+# Install: sudo cp 70-victor-dmm.rules /etc/udev/rules.d/
+#          sudo udevadm control --reload && sudo udevadm trigger
+KERNEL=="hidraw*", ATTRS{idVendor}=="1244", ATTRS{idProduct}=="d237", MODE="0660", GROUP="plugdev", TAG+="uaccess"
