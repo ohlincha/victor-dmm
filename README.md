@@ -9,6 +9,8 @@ Real-time display, plotting and logging for **VICTOR USB multimeters** (Victor 7
 - Windows, macOS and Linux. No drivers needed. The installers bundle everything
   they need.
 
+![victor-dmm reading a DC voltage](docs/screenshot.png)
+
 ## Install
 
 Download the file for your system from the
