@@ -455,8 +455,19 @@ class App(ttk.Frame):
         self.root.destroy()
 
 
+def set_window_icon(root):
+    """The program's icon in the title bar, task bar and dock (icon.png next to this file)."""
+    base = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+    try:
+        root._icon = tk.PhotoImage(file=os.path.join(base, "icon.png"))
+        root.iconphoto(True, root._icon)
+    except (tk.TclError, OSError):
+        pass
+
+
 def main():
-    root = tk.Tk()
+    root = tk.Tk(className="victor-dmm")
+    set_window_icon(root)
     root.title("VICTOR DMM")
     root.minsize(640, 480)
     root.geometry("900x640")

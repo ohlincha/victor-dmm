@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><defs><linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#26304b"/><stop offset="1" stop-color="#141824"/></linearGradient></defs><rect x="104" y="104" width="816" height="816" rx="180" fill="url(#bg)" stroke="#4a5063" stroke-width="5"/>
+<rect x="292" y="196" width="440" height="640" rx="70" fill="#f2c94c"/>
+<rect x="340" y="246" width="344" height="190" rx="22" fill="#1b2133"/>
+<polyline points="370,380 420,380 445,300 470,400 495,330 520,380 560,350 600,370 654,320" fill="none" stroke="#ff9a5c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="512" cy="590" r="105" fill="#1b2133"/>
+<circle cx="512" cy="590" r="70" fill="#3a4260"/>
+<line x1="512" y1="590" x2="560" y2="530" stroke="#ffffff" stroke-width="22" stroke-linecap="round"/>
+<circle cx="420" cy="765" r="30" fill="#1b2133"/><circle cx="420" cy="765" r="14" fill="#e04b3c"/>
+<circle cx="604" cy="765" r="30" fill="#1b2133"/><circle cx="604" cy="765" r="14" fill="#555c70"/>
+</svg>
