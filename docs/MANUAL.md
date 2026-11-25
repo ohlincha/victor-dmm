@@ -55,8 +55,8 @@ The status line at the bottom of the window says *Receiving data from …* when 
 ## 4. Log to a file
 
 1. Check the **File** box. The program suggests a new name, `dmm_<date>_<time>.csv`, in the folder it was
-   started from. Use **Browse…** to choose another folder or name. Always do this on macOS: an app
-   started from the Finder starts in a folder you cannot write to.
+   started from, or in *Documents* when started from a menu or the Finder. Use **Browse…** to choose
+   another folder or name.
 2. **Interval**: `0` saves every reading (2–3 per second); a number saves at most one reading per that
    many seconds (e.g. `1` or `60`).
 3. **Append if file exists**: tick it to add to an existing file. Without the tick the program asks before

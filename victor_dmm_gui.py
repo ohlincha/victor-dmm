@@ -65,6 +65,16 @@ def fmt_duration(s):
     return f"{s // 3600:d}:{s // 60 % 60:02d}:{s % 60:02d}"
 
 
+
+def default_log_dir():
+    """The folder the program was started from, unless that is / or read-only (an app started from the Finder or
+    a desktop menu): then Documents (or the home folder)."""
+    cwd = os.getcwd()
+    if cwd not in ("/", "") and os.access(cwd, os.W_OK):
+        return cwd
+    docs = os.path.join(os.path.expanduser("~"), "Documents")
+    return docs if os.path.isdir(docs) else os.path.expanduser("~")
+
 class Plot(tk.Canvas):
     """Minimal auto-scaling time-series plot."""
 
@@ -212,7 +222,7 @@ class App(ttk.Frame):
         rec.grid(row=3, column=0, sticky="ew", pady=(4, 0))
         rec.columnconfigure(1, weight=1)
         ttk.Label(rec, text="File:").grid(row=0, column=0, sticky="w")
-        self.file_var = tk.StringVar(value=os.path.abspath(time.strftime("dmm_%Y%m%d_%H%M%S.csv")))
+        self.file_var = tk.StringVar(value=os.path.join(default_log_dir(), time.strftime("dmm_%Y%m%d_%H%M%S.csv")))
         self.file_entry = ttk.Entry(rec, textvariable=self.file_var)
         self.file_entry.grid(row=0, column=1, sticky="ew", padx=4)
         self.browse_btn = ttk.Button(rec, text="Browse…", command=self.browse)
