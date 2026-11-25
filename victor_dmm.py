@@ -28,7 +28,7 @@ import sys
 import threading
 import time
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 
 VID, PID = 0x1244, 0xD237
 PACKET_LEN = 14
