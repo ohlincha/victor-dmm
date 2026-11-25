@@ -11,6 +11,9 @@ Real-time display, plotting and logging for **VICTOR USB multimeters** (Victor 7
 
 ![victor-dmm reading a DC voltage](docs/screenshot.png)
 
+**User manual:** [docs/MANUAL.md](docs/MANUAL.md), printable as
+[docs/VictorDMM-Manual.pdf](docs/VictorDMM-Manual.pdf), and in the program under *Help ▸ Manual*.
+
 ## Install
 
 Download the file for your system from the
@@ -93,8 +96,11 @@ PyInstaller. To build locally:
 
 ```sh
 packaging/linux/build_deb.sh                                   # Linux .deb
-pyinstaller --onefile --windowed --name VictorDMM victor_dmm_gui.py   # Windows/macOS
+pyinstaller --onefile --windowed --name VictorDMM --add-data "icon.png:." --add-data "docs/MANUAL.html:docs" victor_dmm_gui.py   # Windows/macOS
 ```
+
+After editing `docs/MANUAL.md`, run `tools/manual_pdf.sh` (needs pandoc and Chrome) to regenerate
+`docs/MANUAL.html` (shipped with the program) and the PDF, and commit both.
 
 ## Protocol
 

@@ -1,0 +1,28 @@
+/* Style for MANUAL.html and the printed PDF (tools/manual_pdf.sh). */
+#title-block-header { display: none; }          /* MANUAL.md has its own heading */
+html { font-family: "DejaVu Sans", "Segoe UI", Helvetica, Arial, sans-serif; font-size: 11pt;
+       line-height: 1.4; color: #111; background: #fff; }
+body { max-width: 46em; margin: 1.5em auto; padding: 0 1em; }
+h1 { font-size: 1.7em; margin: 0 0 0.3em; border-bottom: 2px solid #1f4e79; padding-bottom: 0.2em; }
+h2 { font-size: 1.25em; margin: 1.2em 0 0.4em; color: #1f4e79; }
+h3 { font-size: 1.05em; margin: 1em 0 0.3em; }
+p, li { margin: 0.3em 0; }
+code, pre { font-family: "DejaVu Sans Mono", Consolas, Menlo, monospace; font-size: 0.9em; }
+code { background: #f2f2f2; padding: 0 0.2em; border-radius: 2px; }
+pre { background: #f2f2f2; padding: 0.5em 0.7em; overflow-x: auto; border-radius: 3px; }
+pre code { padding: 0; background: none; }
+table { border-collapse: collapse; margin: 0.5em 0; font-size: 0.95em; }
+th, td { border: 1px solid #bbb; padding: 0.25em 0.5em; text-align: left; vertical-align: top; }
+th { background: #eef2f7; }
+img { max-width: 100%; border: 1px solid #ccc; }
+figure { margin: 0.6em 0; }
+figcaption { font-size: 0.9em; color: #555; }
+a { color: #1f4e79; }
+@media print {
+  @page { size: A4; margin: 15mm 16mm; }
+  html { font-size: 10pt; }
+  body { max-width: none; margin: 0; padding: 0; }
+  h2, h3 { break-after: avoid; }
+  figure, pre, table, li { break-inside: avoid; }
+  a { color: inherit; text-decoration: none; }
+}

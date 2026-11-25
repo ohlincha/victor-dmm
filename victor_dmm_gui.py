@@ -17,6 +17,8 @@ import queue
 import sys
 import time
 import tkinter as tk
+import webbrowser
+from pathlib import Path
 from tkinter import filedialog, messagebox, ttk
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -465,10 +467,38 @@ def set_window_icon(root):
         pass
 
 
+def manual_path():
+    """The bundled user manual (docs/MANUAL.html next to this file, or in the PyInstaller bundle), or None."""
+    base = getattr(sys, "_MEIPASS", os.path.dirname(os.path.abspath(__file__)))
+    for p in (os.path.join(base, "docs", "MANUAL.html"), os.path.join(base, "MANUAL.html")):
+        if os.path.isfile(p):
+            return p
+    return None
+
+
+def open_manual(root=None):
+    p = manual_path()
+    if p and webbrowser.open(Path(p).as_uri()):
+        return
+    messagebox.showinfo("Manual", ("Could not open the manual in a web browser:\n" + p) if p else
+                        "The manual is not installed with this copy of the program.\nIt is online at "
+                        "https://github.com/ohlincha/victor-dmm/blob/main/docs/MANUAL.md", parent=root)
+
+
+def add_menu(root):
+    menubar = tk.Menu(root)
+    helpmenu = tk.Menu(menubar, name="help", tearoff=False)
+    helpmenu.add_command(label="Manual", accelerator="F1", command=lambda: open_manual(root))
+    menubar.add_cascade(label="Help", menu=helpmenu)
+    root.config(menu=menubar)
+    root.bind("<F1>", lambda e: open_manual(root))
+
+
 def main():
     root = tk.Tk(className="victor-dmm")
     set_window_icon(root)
     root.title("VICTOR DMM")
+    add_menu(root)
     root.minsize(640, 480)
     root.geometry("900x640")
     app = App(root)
